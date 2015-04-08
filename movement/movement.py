@@ -3,7 +3,7 @@ import Rasterizer as R
 import math
 import mathutils as mathu
 
-class MouseLook(object):
+class MouseLook():
 	"""docstring for MouseLook"""
 	def __init__(self):
 		self.SENSITIVITY = .005 # mouse sensitivity
