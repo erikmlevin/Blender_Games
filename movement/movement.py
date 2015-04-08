@@ -13,7 +13,8 @@ class MouseLook(object):
 		self.scene = bge.logic.getCurrentScene()
 		self.playerCamera = self.scene.objects['playerCamera']
 		self.playerBody = self.scene.objects['playerBody']
-	
+		self.cont = bge.logic.getCurrentController()
+		self.keyboard = bge.logic.keyboard
 	def look(self):
 		cont = bge.logic.getCurrentController()
 		mouse = cont.sensors['playerMouse']
@@ -50,18 +51,47 @@ class MouseLook(object):
 		y = self.playerCamera['x'] + math.pi / 2
 
 		v = mathu.Vector((-x,0,-y))
-		w = mathu.Vector((0,0,y-math.pi))
+		w = mathu.Vector((0,0,-(y-math.pi)))
 
 		self.playerCamera.localOrientation = v
+		x = self.playerBody.position[0]
+		y = self.playerBody.position[1]
+		z = self.playerBody.position[2]-0.7
+		self.playerCamera.worldPosition = [x,y,z]
 		self.playerBody.localOrientation = w
 
 
 
-	def move(self):
-		pass
+	def move(self): 
+		ground = self.cont.sensors['ground']
+		self.walkSpeed = self.playerBody['movementSpeed']
+		self.sprint = self.playerBody['sprintFactor']
+
+		ACTIVE = bge.logic.KX_INPUT_ACTIVE
+		JUST_ACTIVATED = bge.logic.KX_INPUT_JUST_ACTIVATED
+		JUST_NONE = bge.logic.KX_INPUT_NONE
+
+		if ground.positive:
+			if self.keyboard.events[bge.events.LEFTSHIFTKEY] == ACTIVE:
+				self.walkSpeed *= sprint
+			if self.keyboard.events[bge.events.WKEY] == ACTIVE:
+				self.playerBody.setLinearVelocity((0,self.walkSpeed,0), True)
+			if self.keyboard.events[bge.events.SKEY] == ACTIVE:
+				self.playerBody.setLinearVelocity((0,-self.walkSpeed,0), True)
+			if self.keyboard.events[bge.events.AKEY] == ACTIVE:
+				self.playerBody.setLinearVelocity((self.walkSpeed*0.8,0,0), True)
+			if self.keyboard.events[bge.events.DKEY] == ACTIVE:
+				self.playerBody.setLinearVelocity((-self.walkSpeed*0.8,0,0), True)
+			if self.keyboard.events[bge.events.SPACEKEY] == JUST_ACTIVATED:
+				self.playerBody.setLinearVelocity((0,0,3), True)
+
+
 
 
 #method for import module
 def mouseLook():
 	mLook = MouseLook()
 	mLook.look()
+def move():
+	mov = MouseLook()
+	mov.move()
