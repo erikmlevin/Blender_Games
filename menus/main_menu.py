@@ -1,4 +1,5 @@
 import bge
+import GameLogic 
 class MainMenu():
 	"""docstring for MainMenu"""
 	def __init__(self):
@@ -13,7 +14,7 @@ class MainMenu():
 		self.settingsButton = self.scene.objects['settingsButton']
 		self.quitButton = self.scene.objects['quitButton']
 
-		self.killstack = []
+		
 
 	def newGame(self):
 		pass
@@ -29,9 +30,9 @@ class MainMenu():
 			if mouseClick.positive:
 				self.scene.addObject("settings","center",0)
 				self.scene.addObject("killButton","center",0)
-				self.killstack.append(self.scene.objects["settings"])#hhave to made it global prop
-				self.killstack.append(self.scene.objects["killButton"])
-				print(len(self.killstack))
+				GameLogic.globalDict['killstack'] = []
+				GameLogic.globalDict['killstack'].append(self.scene.objects["settings"])#hhave to made it global prop
+				GameLogic.globalDict['killstack'].append(self.scene.objects["killButton"])
 		else:
 			self.settingsButton.color = [0.1,.6,1,True]
 		
@@ -44,10 +45,8 @@ class MainMenu():
 		if mouseOver.positive:
 			killButton.color = [0,1,.5,True]
 			if mouseClick.positive:
-				print(len(self.killstack))
-				for i in self.killstack:
-					i.endObject()
-				self.killstack = []
+				self.scene.objects['settings'].endObject()
+				self.scene.objects['killButton'].endObject()
 		else:
 			killButton.color = [0,1,.8,True]
 
