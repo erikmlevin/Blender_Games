@@ -17,11 +17,38 @@ class MainMenu():
 		
 
 	def newGame(self):
-		pass
+		mouseOver = self.cont.sensors['mouseOver']
+		mouseClick = self.cont.sensors['mouseClick']
+		if mouseOver.positive:
+			self.newGameButton.color = [0.6,0.6,1,True]
+			if mouseClick.positive:
+				#dodelat vyskakujici okno pro potvrzeni
+				bge.logic.endGame()
+		else:
+			self.newGameButton.color = [0.1,.6,1,True]
+
 	def continueGame(self):
-		pass
-	def load(self):
-		pass
+		mouseOver = self.cont.sensors['mouseOver']
+		mouseClick = self.cont.sensors['mouseClick']
+		if mouseOver.positive:
+			self.continueButton.color = [0.6,0.6,1,True]
+			if mouseClick.positive:
+				#dodelat vyskakujici okno pro potvrzeni
+				bge.logic.endGame()
+		else:
+			self.continueButton.color = [0.1,.6,1,True]
+
+	def loadGame(self):
+		mouseOver = self.cont.sensors['mouseOver']
+		mouseClick = self.cont.sensors['mouseClick']
+		if mouseOver.positive:
+			self.loadButton.color = [0.6,0.6,1,True]
+			if mouseClick.positive:
+				#dodelat vyskakujici okno pro potvrzeni
+				bge.logic.endGame()
+		else:
+			self.loadButton.color = [0.1,.6,1,True]
+
 	def settings(self):
 		mouseOver = self.cont.sensors['mouseOver']
 		mouseClick = self.cont.sensors['mouseClick']
@@ -37,8 +64,18 @@ class MainMenu():
 			self.settingsButton.color = [0.1,.6,1,True]
 		
 	def quit(self):
-		pass
+		mouseOver = self.cont.sensors['mouseOver']
+		mouseClick = self.cont.sensors['mouseClick']
+		if mouseOver.positive:
+			self.quitButton.color = [0.6,0.6,1,True]
+			if mouseClick.positive:
+				#dodelat vyskakujici okno pro potvrzeni
+				bge.logic.endGame()
+		else:
+			self.quitButton.color = [0.1,.6,1,True]
+
 	def killWindow(self):
+		#have to made it trought the for cycle scene,object and check if parent is killButton 
 		killButton = self.scene.objects['killButton']
 		mouseOver = self.cont.sensors['mouseOver']
 		mouseClick = self.cont.sensors['mouseClick']
@@ -48,7 +85,7 @@ class MainMenu():
 				self.scene.objects['settings'].endObject()
 				self.scene.objects['killButton'].endObject()
 		else:
-			killButton.color = [0,1,.8,True]
+			killButton.color = [1,1,0,True]
 
 
 
@@ -59,3 +96,20 @@ def settings():
 def killWindow():
 	kill = MainMenu()
 	kill.killWindow()
+
+def newGame():
+	new = MainMenu()
+	new.newGame()
+
+def continueGame():
+	cont = MainMenu()
+	cont.continueGame()
+
+def quit():
+	end = MainMenu()
+	end.quit()
+
+def loadGame():
+	load = MainMenu()
+	load.loadGame()
+
