@@ -17,4 +17,9 @@ class Settings():
 	def sound(self):
 		#method for changing volume in game probably gonna need new class for that (3 types of sounds in game - enviroments, music, voice)
 		pass
-	
+
+class Sound(object):
+	"""docstring for Sound"""
+	def __init__(self, arg):
+		pass
+		
