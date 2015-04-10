@@ -57,9 +57,6 @@ class MainMenu():
 			if mouseClick.positive:
 				self.scene.addObject("settings","center",0)
 				self.scene.addObject("killButton","center",0)
-				GameLogic.globalDict['killstack'] = []
-				GameLogic.globalDict['killstack'].append(self.scene.objects["settings"])#hhave to made it global prop
-				GameLogic.globalDict['killstack'].append(self.scene.objects["killButton"])
 		else:
 			self.settingsButton.color = [0.1,.6,1,True]
 		
