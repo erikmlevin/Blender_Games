@@ -50,14 +50,15 @@ class MouseLook():
 		x = -self.playerCamera['y'] + math.pi / 2
 		y = self.playerCamera['x'] + math.pi / 2
 
-		v = mathu.Vector((-x,0,-y))
-		w = mathu.Vector((0,0,-(y-math.pi)))
+		v = mathu.Vector((-x,-math.pi,y))
+		w = mathu.Vector((0,0,(y-math.pi)))
 
 		self.playerCamera.localOrientation = v
 		x = self.playerBody.position[0]
 		y = self.playerBody.position[1]
-		z = self.playerBody.position[2]-0.7
+		z = self.playerBody.position[2]+0.7
 		self.playerCamera.worldPosition = [x,y,z]
+		#print(self.playerCamera.localOrientation)
 		self.playerBody.localOrientation = w
 
 
@@ -72,6 +73,8 @@ class MouseLook():
 		JUST_NONE = bge.logic.KX_INPUT_NONE
 
 		if ground.positive:
+			if self.keyboard.active_events == {}: #s timhle to predelat na jeden if a funkci pro DICT -> returns read-only DICT of active keyboard events 
+				self.playerBody.setLinearVelocity((0,0,0), True)
 			if self.keyboard.events[bge.events.LEFTSHIFTKEY] == ACTIVE:
 				self.walkSpeed *= sprint
 			if self.keyboard.events[bge.events.WKEY] == ACTIVE:
@@ -79,9 +82,9 @@ class MouseLook():
 			if self.keyboard.events[bge.events.SKEY] == ACTIVE:
 				self.playerBody.setLinearVelocity((0,-self.walkSpeed,0), True)
 			if self.keyboard.events[bge.events.AKEY] == ACTIVE:
-				self.playerBody.setLinearVelocity((self.walkSpeed*0.8,0,0), True)
-			if self.keyboard.events[bge.events.DKEY] == ACTIVE:
 				self.playerBody.setLinearVelocity((-self.walkSpeed*0.8,0,0), True)
+			if self.keyboard.events[bge.events.DKEY] == ACTIVE:
+				self.playerBody.setLinearVelocity((self.walkSpeed*0.8,0,0), True)
 			if self.keyboard.events[bge.events.SPACEKEY] == JUST_ACTIVATED:
 				self.playerBody.setLinearVelocity((0,0,3), True)
 
