@@ -1,0 +1,13 @@
+12.04.2015
+=========================================================================================================================
+code:
+find way to make external object library/db
+access to openGL classic terminal(console) text for user text input -> create 'savin point'
+randomaize pathing curves for enemies
+inventory system
+game:
+random generated object
+invertory ui
+player ui + map
+basic model of hands and torch
+=========================================================================================================================
