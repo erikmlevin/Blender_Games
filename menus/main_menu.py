@@ -23,7 +23,7 @@ class MainMenu():
 			self.newGameButton.color = [0.6,0.6,1,True]
 			if mouseClick.positive:
 				#dodelat vyskakujici okno pro potvrzeni
-				bge.logic.endGame()
+				self.scene.replace('game')
 		else:
 			self.newGameButton.color = [0.1,.6,1,True]
 

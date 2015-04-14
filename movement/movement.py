@@ -15,6 +15,7 @@ class MouseLook():
 		self.playerBody = self.scene.objects['playerBody']
 		self.cont = bge.logic.getCurrentController()
 		self.keyboard = bge.logic.keyboard
+		
 	def look(self):
 		cont = bge.logic.getCurrentController()
 		mouse = cont.sensors['playerMouse']
