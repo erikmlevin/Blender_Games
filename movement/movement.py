@@ -62,12 +62,12 @@ class MouseLook():
 		#print(self.playerCamera.localOrientation)
 		self.playerBody.localOrientation = w
 
-	def dictOfMoves(key,self):
-		moves = {ord('w'):setLinearVelocity((0,self.walkSpeed,0), True),ord('s'):setLinearVelocity((0,-self.walkSpeed,0), True),ord('a'):setLinearVelocity((-self.walkSpeed*0.8,0,0), True),ord('d'):setLinearVelocity((self.walkSpeed*0.8,0,0), True)}
+	def dictOfMoves(self,key):
+		moves = {ord('w'):(0,self.walkSpeed,0),ord('s'):(0,-self.walkSpeed,0),ord('a'):(-self.walkSpeed*0.8,0,0),ord('d'):(self.walkSpeed*0.8,0,0)}
 		if key in moves:
 			return moves[key]
 		else: return None
-		
+
 	def move(self): 
 		ground = self.cont.sensors['ground']
 		self.walkSpeed = self.playerBody['movementSpeed']
@@ -78,23 +78,23 @@ class MouseLook():
 		JUST_NONE = bge.logic.KX_INPUT_NONE
 
 		if ground.positive:
-			if self.keyboard.active_events == {}: #s timhle to predelat na jeden if a funkci pro DICT -> returns read-only DICT of active keyboard events 
+			if self.keyboard.active_events == {}: 
 				self.playerBody.setLinearVelocity((0,0,0), True)
-			# elif self.keyboard.active_events != {}:
-			# 	for i in self.keyboard.active_events:
-			# 		self.playerBody.dictOfMoves(i)
-			if self.keyboard.events[bge.events.LEFTSHIFTKEY] == ACTIVE:
-				self.walkSpeed *= sprint
-			if self.keyboard.events[bge.events.WKEY] == ACTIVE:
-				self.playerBody.setLinearVelocity((0,self.walkSpeed,0), True)
-			if self.keyboard.events[bge.events.SKEY] == ACTIVE:
-				self.playerBody.setLinearVelocity((0,-self.walkSpeed,0), True)
-			if self.keyboard.events[bge.events.AKEY] == ACTIVE:
-				self.playerBody.setLinearVelocity((-self.walkSpeed*0.8,0,0), True)
-			if self.keyboard.events[bge.events.DKEY] == ACTIVE:
-				self.playerBody.setLinearVelocity((self.walkSpeed*0.8,0,0), True)
-			if self.keyboard.events[bge.events.SPACEKEY] == JUST_ACTIVATED:
-				self.playerBody.setLinearVelocity((0,0,3), True)
+			else:
+				for i in self.keyboard.active_events:
+					self.playerBody.setLinearVelocity(self.dictOfMoves(i),True) #work only linear way... cant use 2 buttons at once
+			# if self.keyboard.events[bge.events.LEFTSHIFTKEY] == ACTIVE:
+			# 	self.walkSpeed *= sprint
+			# if self.keyboard.events[bge.events.WKEY] == ACTIVE:
+			# 	self.playerBody.setLinearVelocity((0,self.walkSpeed,0), True)
+			# if self.keyboard.events[bge.events.SKEY] == ACTIVE:
+			# 	self.playerBody.setLinearVelocity((0,-self.walkSpeed,0), True)
+			# if self.keyboard.events[bge.events.AKEY] == ACTIVE:
+			# 	self.playerBody.setLinearVelocity((-self.walkSpeed*0.8,0,0), True)
+			# if self.keyboard.events[bge.events.DKEY] == ACTIVE:
+			# 	self.playerBody.setLinearVelocity((self.walkSpeed*0.8,0,0), True)
+			# if self.keyboard.events[bge.events.SPACEKEY] == JUST_ACTIVATED:
+			# 	self.playerBody.setLinearVelocity((0,0,3), True)
 
 
 
