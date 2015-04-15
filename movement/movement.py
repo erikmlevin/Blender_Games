@@ -62,8 +62,12 @@ class MouseLook():
 		#print(self.playerCamera.localOrientation)
 		self.playerBody.localOrientation = w
 
-
-
+	def dictOfMoves(key,self):
+		moves = {ord('w'):setLinearVelocity((0,self.walkSpeed,0), True),ord('s'):setLinearVelocity((0,-self.walkSpeed,0), True),ord('a'):setLinearVelocity((-self.walkSpeed*0.8,0,0), True),ord('d'):setLinearVelocity((self.walkSpeed*0.8,0,0), True)}
+		if key in moves:
+			return moves[key]
+		else: return None
+		
 	def move(self): 
 		ground = self.cont.sensors['ground']
 		self.walkSpeed = self.playerBody['movementSpeed']
@@ -76,6 +80,9 @@ class MouseLook():
 		if ground.positive:
 			if self.keyboard.active_events == {}: #s timhle to predelat na jeden if a funkci pro DICT -> returns read-only DICT of active keyboard events 
 				self.playerBody.setLinearVelocity((0,0,0), True)
+			# elif self.keyboard.active_events != {}:
+			# 	for i in self.keyboard.active_events:
+			# 		self.playerBody.dictOfMoves(i)
 			if self.keyboard.events[bge.events.LEFTSHIFTKEY] == ACTIVE:
 				self.walkSpeed *= sprint
 			if self.keyboard.events[bge.events.WKEY] == ACTIVE:
